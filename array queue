@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+class Main {
+    static final int MAX=3;
+    int f,r;
+    int q[]= new int[MAX];
+    
+    Main(){
+        f=r=-1;
+    }
+    
+    void enqueue(int val){
+        if(r== MAX-1 )
+        {
+            System.out.println("Queue Overflow");
+        }else if(r==-1){
+            f=r=0;
+            q[r]=val;}
+        else
+        {
+            r++;
+            q[r]=val;
+        }
+
+    }
+    
+    void dequeue(){
+        if(f==-1 || f>r)
+            System.out.println("Queue Underflow");
+        else{
+            System.out.println(q[f] + " Deleted");
+            f++;
+            if(f>r){
+                f=r=-1;
+            }
+        }
+    }
+    
+    
+    void display(){
+        if(r==-1 || f>r)
+            System.out.println("Empty");
+        else{
+            System.out.println("Queue elements are:");
+            for(int i=r; i>=0; i--)
+            {
+                System.out.println(q[i]);
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
+        Main m = new Main();
+        int choice, value;
+        
+        while(true){
+        System.out.println("Menue: 1.Enqueue 2.Dequeue 3.Display 4.Exit");
+        choice=sc.nextInt();
+        switch(choice){
+          case 1:
+            System.out.println("input value to queue");
+            value=sc.nextInt();
+            m.enqueue(value);
+            break;
+          case 2:   
+            m.dequeue();
+            break;
+          case 3:
+            m.display();
+            break;
+          case 4:
+            System.out.println("Exiting...");
+            return;
+          default:
+            System.out.println("invalid input");
+          }
+        }
+    }
+}
