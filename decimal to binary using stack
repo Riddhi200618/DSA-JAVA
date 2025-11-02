@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+class Main {
+    static final int max=32;
+    int top;
+    int s[]= new int[max];
+    
+    Main(){
+        top=-1;
+    }
+    
+    void push(int value){
+        
+        s[++top]=value;
+    }
+    
+    void display(){
+        System.out.println("Binary conversion is:");
+        for(int i=top; i>=0; i--){
+            System.out.print(s[i]);
+        }
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        Main m= new Main();
+        int n;
+        int temp;
+        
+        System.out.println("Enter your Number:");
+        n=sc.nextInt();
+        temp=n;
+        
+        while(temp!=0){
+            int r=temp%2;
+            temp /=2;
+        m.push(r);
+        }
+        m.display();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
