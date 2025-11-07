@@ -1,0 +1,175 @@
+class Mainn {
+    Node head;
+
+    Mainn() {
+        head = null;
+    }
+
+    void insertatbeggining(int value) {
+        Node nn = new Node(value);
+        if (head == null) {
+            head = nn;
+            return;
+        }
+        nn.next = head;
+        head.prev = nn;
+        head = nn;
+    }
+
+    void insertatend(int value) {
+        Node nn = new Node(value);
+        if (head == null) {
+            head = nn;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = nn;
+        nn.prev = temp;
+    }
+
+    void deletefrombeginning() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+        head = head.next;
+        if (head != null) {
+            head.prev = null;
+        }
+        System.out.println("Deleted from beginning.");
+    }
+
+    void deletefromend() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+        temp.next = null;
+        System.out.println("Deleted from end.");
+    }
+
+    void deleteGivenNode(int key) {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        Node current = head;
+
+        if (current.data == key) {
+            head = head.next;
+            return;
+        }
+
+        while (current != null && current.data != key) {
+            current = current.next;
+        }
+
+        if (current == null) {
+            System.out.println("Key not found in the list.");
+            return;
+        }
+        
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
+    }
+
+    void search(int key) {
+        Node temp = head;
+        int at = 1;
+        while (temp != null) {
+            if (temp.data == key) {
+                System.out.println("key is at" + at);
+                return;
+            }
+            temp = temp.next;
+            at++;
+        }
+        System.out.println("key not found");
+    }
+
+    void traverseforward() {
+        if (head == null) {
+            System.out.println("List is Empty.");
+            return;
+        }
+        Node temp = head;
+        System.out.print("Traverse Forward: ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    void traversebackward() {
+        if (head == null) {
+            System.out.println("List is Empty.");
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        System.out.print("Traverse Backward: ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.prev;
+        }
+        System.out.println();
+    }
+
+    void countNodes() {
+        int count = 0;
+        Node temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        System.out.println("Total number of nodes: " + count);
+    }
+    
+    void display(){
+        Node temp=head;
+        System.out.println("List Contains:");
+        while(temp!=null){
+            System.out.println(temp.data + "");
+            temp=temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Mainn m = new Mainn();
+        m.insertatbeggining(10);
+        m.insertatbeggining(20);
+        m.insertatbeggining(30);
+        m.insertatbeggining(40);
+        m.display();
+        m.deleteGivenNode(20);
+        m.display();
+        m.traversebackward();
+        m.traverseforward();
+    }
+}
+
+
+
+class Node {
+    int data;
+    Node prev;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
