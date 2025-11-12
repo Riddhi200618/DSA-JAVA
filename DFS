@@ -1,0 +1,94 @@
+import java.util.*;
+
+public class Main {
+
+    int n;
+    int adj[][];
+    int[] stack;
+    int top;
+    int[] visited;
+
+    void createGraph() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("No of vertices: ");
+        n = sc.nextInt();
+
+        adj = new int[n][n];
+        visited = new int[n];
+        stack = new int[n];
+        top = -1;
+
+        System.out.print("No of edges: ");
+        int e = sc.nextInt();
+        
+        System.out.println("Enter edges:");
+        for (int i = 0; i < e; i++) {
+            int src = sc.nextInt();
+            int dest = sc.nextInt();
+            adj[src][dest] = 1;
+            adj[dest][src] = 1;
+        }
+
+        System.out.println("Adj Matrix:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(adj[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    void dfs(int start) {
+        int v, i;
+        push(start);
+        visited[start] = 1;
+
+        System.out.print("DFS Traversal: ");
+        while (!isStackEmpty()) {
+            v = pop();
+            System.out.print(v + " ");
+            
+            for (i = 0; i < n; i++) {
+                if (adj[v][i] == 1 && visited[i] == 0) {
+                    push(i);
+                    visited[i] = 1; 
+                }
+            }
+        }
+    }
+
+    void push(int vertex) {
+        if (top == n - 1) {
+            System.out.println("Stack overflow");
+        } else {
+            top++;
+            stack[top] = vertex;
+        }
+    }
+
+    int pop() {
+        int vertex = -1;
+        if (top == -1) {
+            return vertex;
+        } else {
+            vertex = stack[top];
+            top--;
+        }
+        return vertex;
+    }
+
+    boolean isStackEmpty() {
+        return (top == -1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Main m = new Main();
+
+        m.createGraph();
+        System.out.print("Enter starting vertex for DFS: ");
+        int start = sc.nextInt();
+        m.dfs(start);
+    }
+}
